@@ -31,16 +31,14 @@
 .navbar {
   position: sticky;
   top: 0;
-  height: 5vh;
-  background-color: #fafefe;
-  margin: 20px;
+  height: 8vh;
   z-index: 1000;
 }
 
 .navbar button {
-  margin: 0 10px;
+  margin: 10px 20px;
   padding: 10px 20px;
-  background-color: #61dafb;
+  background-color: #2EAEFE;
   color: white;
   border: none;
   border-radius: 5px;
