@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/first-meet-scoring/static/css/main.b4b295bb.css",
-    "main.js": "/first-meet-scoring/static/js/main.d5aa304a.js",
+    "main.js": "/first-meet-scoring/static/js/main.4afa1ae4.js",
     "static/js/453.54befce2.chunk.js": "/first-meet-scoring/static/js/453.54befce2.chunk.js",
     "index.html": "/first-meet-scoring/index.html",
     "main.b4b295bb.css.map": "/first-meet-scoring/static/css/main.b4b295bb.css.map",
-    "main.d5aa304a.js.map": "/first-meet-scoring/static/js/main.d5aa304a.js.map",
+    "main.4afa1ae4.js.map": "/first-meet-scoring/static/js/main.4afa1ae4.js.map",
     "453.54befce2.chunk.js.map": "/first-meet-scoring/static/js/453.54befce2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b4b295bb.css",
-    "static/js/main.d5aa304a.js"
+    "static/js/main.4afa1ae4.js"
   ]
 }
