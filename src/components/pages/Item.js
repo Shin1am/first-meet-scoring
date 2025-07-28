@@ -1,11 +1,52 @@
 import { useState, useEffect } from "react"
 import { scriptURL } from "./constant"
 import { db, ref, set, onValue, remove } from "../../firebase"
+import DiamondImage from "../assets/test.png"
+import EmeraldImage from "../assets/Emerald.png"
+import SwordImage from "../assets/Sword.png"
+import ChickenImage from "../assets/Chicken.png"
+import EnchantedBookImage from "../assets/EnchantedBook.png"
+import GoldenAppleImage from "../assets/GoldenApple.png"
+import MuttonImage from "../assets/Mutton.png"
+import RedPotionImage from "../assets/RedPotion.png"
+import SheepImage from "../assets/Sheep.png"
+import WaterMelonImage from "../assets/WaterMelon.png"
+import WoodLogImage from "../assets/WoodLog.png"
 
 // Define initial items - keep this constant outside component
 const INITIAL_ITEMS = [
-  { id: 1, name: "Potion", score: 1000, image: "/images/potion.png" },
-  { id: 2, name: "Sword", score: 200, image: "/images/sword.png" },
+  { id: 1, name: "Diamond", score: 100, image: DiamondImage },
+  { id: 2, name: "Diamond", score: 100, image: DiamondImage },
+  { id: 3, name: "Sword", score: 100, image: SwordImage },
+  { id: 4, name: "Sword", score: 100, image: SwordImage },
+  { id: 5, name: "Emerald", score: 150, image: EmeraldImage },
+  { id: 6, name: "Emerald", score: 150, image: EmeraldImage },
+  { id: 7, name: "Golden Apple", score: 150, image: GoldenAppleImage },
+  { id: 8, name: "Golden Apple", score: 150, image: GoldenAppleImage },
+  { id: 9, name: "Watermelon", score: 100, image: WaterMelonImage },
+  { id: 10, name: "Watermelon", score: 100, image: WaterMelonImage },
+  { id: 11, name: "Mutton", score: 100, image: MuttonImage },
+  { id: 12, name: "Mutton", score: 100, image: MuttonImage },
+  { id: 13, name: "Chicken", score: 50, image: ChickenImage },
+  { id: 14, name: "Chicken", score: 50, image: ChickenImage },
+  { id: 15, name: "Chicken", score: 50, image: ChickenImage },
+  { id: 16, name: "Chicken", score: 50, image: ChickenImage },
+  { id: 17, name: "Enchanted Book", score: 50, image: EnchantedBookImage },
+  { id: 18, name: "Enchanted Book", score: 50, image: EnchantedBookImage },
+  { id: 19, name: "Enchanted Book", score: 50, image: EnchantedBookImage },
+  { id: 20, name: "Enchanted Book", score: 50, image: EnchantedBookImage },
+  { id: 21, name: "RedPotion", score: 50, image: RedPotionImage },
+  { id: 22, name: "RedPotion", score: 50, image: RedPotionImage },
+  { id: 23, name: "RedPotion", score: 50, image: RedPotionImage },
+  { id: 24, name: "RedPotion", score: 50, image: RedPotionImage },
+  { id: 25, name: "Sheep", score: 50, image: SheepImage },
+  { id: 26, name: "Sheep", score: 50, image: SheepImage },
+  { id: 27, name: "Sheep", score: 50, image: SheepImage },
+  { id: 28, name: "Sheep", score: 50, image: SheepImage },
+  { id: 29, name: "Wood Log", score: 50, image: WoodLogImage },
+  { id: 30, name: "Wood Log", score: 50, image: WoodLogImage },
+  { id: 31, name: "Wood Log", score: 50, image: WoodLogImage },
+  { id: 32, name: "Wood Log", score: 50, image: WoodLogImage },
   // Add your other items here
 ];
 
