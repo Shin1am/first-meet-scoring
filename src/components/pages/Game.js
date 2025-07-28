@@ -18,6 +18,7 @@ function Game({ game }) {
   const [manualMode, setManualMode] = useState(true);
   const [manualScore, setManualScore] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     if (!manualMode) {
@@ -31,7 +32,7 @@ function Game({ game }) {
   }, [iron, gold, diamond, manualMode, manualScore]);
 
   const handleSubmit = async () => {
-    const isManual = iron == 0 && gold == 0 && diamond == 0 && totalScore > 0;
+    const isManual = iron === 0 && gold === 0 && diamond === 0 && totalScore > 0;
 
     const url = `${scriptURL}?mode=calculate&group=${encodeURIComponent(
       selectedGroup
@@ -40,6 +41,8 @@ function Game({ game }) {
         ? `&total=${totalScore}&iron=0&gold=0&diamond=0`
         : `&iron=${iron}&gold=${gold}&diamond=${diamond}`
     }`;
+
+    setIsSubmitted(true);
 
     try {
       const response = await fetch(url);
@@ -50,6 +53,7 @@ function Game({ game }) {
         setDiamond(0);
         setManualScore(0);
         setTotalScore(0);
+        setIsSubmitted(false);
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred while submitting the data.");
@@ -160,6 +164,11 @@ function Game({ game }) {
       >
         Submit
       </button>
+      {isSubmitted && (
+        <div className="mt-3 text-center">
+          <p className="text-success">Submitting...</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -20,7 +20,7 @@ const potions = {
   "fire resistance": 2000,
   "instant health": 1000,
   "night vision": 500,
-  invisibility: 300,
+  "invisibility": 300,
   "water bottle": 100,
   "water bottle 2": 100,
 };
@@ -32,6 +32,9 @@ export default function MainGame2() {
   const [selectedPotion, setSelectedPotion] = useState(null);
   const [targetGroup, setTargetGroup] = useState(null);
   const [usedPotions, setUsedPotions] = useState([]);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [pendingGroup, setPendingGroup] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handlePotionApply = async (group) => {
     if (!selectedPotion || usedPotions.includes(selectedPotion)) return;
@@ -48,12 +51,15 @@ export default function MainGame2() {
       group
     )}&game=Game%202&${paramKey}=${paramValue}`;
 
+    setIsSubmitted(true);
+
     try {
       const res = await fetch(url);
       const msg = await res.text();
       alert(`${group}: ${msg}`);
       setUsedPotions((prev) => [...prev, selectedPotion]);
       setTargetGroup(group);
+      setIsSubmitted(false);
     } catch (err) {
       alert("Something went wrong.");
       console.error(err);
@@ -69,9 +75,25 @@ export default function MainGame2() {
     setUsedPotions([]);
   };
 
+  const handleGroupSelect = (group) => {
+    setPendingGroup(group);
+    setShowConfirmation(true);
+  };
+
+  const handleConfirm = async () => {
+    await handlePotionApply(pendingGroup);
+    setShowConfirmation(false);
+    setPendingGroup(null);
+  };
+
+  const handleCancel = () => {
+    setShowConfirmation(false);
+    setPendingGroup(null);
+  };
+
   if (phase === "select-groups") {
     return (
-      <div className="container mt-5">
+      <div className="container mt-5 p-4">
         <h3 className="mb-4 text-center">🎮 Select Competing Groups</h3>
 
         <div className="row mb-3">
@@ -121,45 +143,92 @@ export default function MainGame2() {
 
   return (
     <div className="container mt-4">
-      <h3 className="mb-4 text-center">🧪 Family Feud — {group1} vs {group2}</h3>
+      <h3 className="mb-4 text-center">
+        🧪 Family Feud — {group1} vs {group2}
+      </h3>
 
       <div className="row g-3">
-        {[...Object.entries(multipliers), ...Object.entries(potions).sort((a, b) => b[1] - a[1])].map(
-          ([name, val], idx) => (
-            <div className="col-6 col-md-6" key={name}>
-              <button
-                className={`btn ${multipliers[name] ? "btn-danger" : "btn-warning"} w-100 fs-5 py-3`}
-                disabled={usedPotions.includes(name)}
-                onClick={() => setSelectedPotion(name)}
-              >
-                {name.toUpperCase()} {multipliers[name] ? `(x${val})` : `(+${val})`}
-              </button>
-            </div>
-          )
-        )}
+        {[
+          ...Object.entries(multipliers),
+          ...Object.entries(potions).sort((a, b) => b[1] - a[1]),
+        ].map(([name, val], idx) => (
+          <div className="col-6 col-md-6" key={name}>
+            <button
+              className={`btn ${
+                multipliers[name] ? "btn-danger" : "btn-warning"
+              } w-100 fs-5 py-3`}
+              disabled={usedPotions.includes(name)}
+              onClick={() => setSelectedPotion(name)}
+            >
+              {name.toUpperCase()}{" "}
+              {multipliers[name] ? `(x${val})` : `(+${val})`}
+            </button>
+          </div>
+        ))}
       </div>
 
       {selectedPotion && !usedPotions.includes(selectedPotion) && (
         <div className="mt-4 text-center">
-          <h5>Apply <strong>{selectedPotion.toUpperCase()}</strong> to which team?</h5>
+          <h5>
+            Apply <strong>{selectedPotion.toUpperCase()}</strong> to which team?
+          </h5>
           <div className="d-flex justify-content-center gap-3 mt-3">
-            <button className="btn btn-outline-success px-4" onClick={() => handlePotionApply(group1)}>
+            <button
+              className="btn btn-outline-success px-4"
+              onClick={() => handleGroupSelect(group1)}
+            >
               {group1}
             </button>
-            <button className="btn btn-outline-success px-4" onClick={() => handlePotionApply(group2)}>
+            <button
+              className="btn btn-outline-success px-4"
+              onClick={() => handleGroupSelect(group2)}
+            >
               {group2}
             </button>
           </div>
+
+          {/* Add Confirmation Modal */}
+          {showConfirmation && (
+            <div
+              className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+              style={{ backgroundColor: "rgba(0,0,0,0.5)", zIndex: 1000 }}
+            >
+              <div className="bg-white p-4 rounded shadow">
+                <h5>Confirm Action</h5>
+                <p>
+                  Apply <strong>{selectedPotion.toUpperCase()}</strong> to{" "}
+                  <strong>{pendingGroup}</strong>?
+                </p>
+                <div className="d-flex justify-content-end gap-2">
+                  <button className="btn btn-secondary" onClick={handleCancel}>
+                    Cancel
+                  </button>
+                  <button className="btn btn-primary" onClick={handleConfirm}>
+                    Confirm
+                  </button>
+                </div>
+                {isSubmitted && (
+                  <div className="mt-3 text-center">
+                    <p className="text-success">Submitting...</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
       {targetGroup && (
         <div className="alert alert-info mt-4 text-center">
-          ✅ {selectedPotion.toUpperCase()} applied to <strong>{targetGroup}</strong>
+          ✅ {selectedPotion.toUpperCase()} applied to{" "}
+          <strong>{targetGroup}</strong>
         </div>
       )}
 
-      <button className="btn btn-secondary mt-5 w-100" onClick={resetGame}>
+      <button
+        className="btn btn-secondary mt-5 w-100 mb-20"
+        onClick={resetGame}
+      >
         🔁 Start Over
       </button>
     </div>

@@ -10,6 +10,7 @@ const games = [
   { name: "Game 4", path: "game-4" },
   { name: "Game 5", path: "game-5" },
   { name: "Game 6", path: "game-6" },
+  { name: "Item", path: "item" },
 ];
 
 // The Home component now accepts a 'navigate' prop
