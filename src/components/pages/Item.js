@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { scriptURL } from "./constant"
+import { db, ref, set, onValue, remove } from "../../firebase"
 
 // Define initial items - keep this constant outside component
 const INITIAL_ITEMS = [
@@ -18,19 +19,27 @@ const groups = [
 ];
 
 export default function Item() {
-  // Initialize state from localStorage or use INITIAL_ITEMS if no stored data
-  const [items, setItems] = useState(() => {
-    const savedItems = localStorage.getItem('gameItems');
-    return savedItems ? JSON.parse(savedItems) : INITIAL_ITEMS;
-  });
+  const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Save items to localStorage whenever they change
+  // Fetch items from Firebase on mount
   useEffect(() => {
-    localStorage.setItem('gameItems', JSON.stringify(items));
-  }, [items]);
+    const itemsRef = ref(db, 'items');
+    onValue(itemsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setItems(Object.values(data));
+      } else {
+        // Initialize with default items if not present
+        INITIAL_ITEMS.forEach(item => {
+          set(ref(db, `items/${item.id}`), item);
+        });
+        setItems(INITIAL_ITEMS);
+      }
+    });
+  }, []);
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -49,20 +58,20 @@ export default function Item() {
         `${scriptURL}?mode=item&group=${encodeURIComponent(selectedGroup)}&score=${selectedItem.score}`
       );
       const result = await response.text();
-      
+
       if (response.ok) {
-        const updatedItems = items.filter(item => item.id !== selectedItem.id);
-        setItems(updatedItems);
+        await remove(ref(db, `items/${selectedItem.id}`));
         setSelectedItem(null);
         setSelectedGroup("");
         alert(`Item ${selectedItem.name} added to ${selectedGroup}!`);
-        setIsSubmitted(false);
       } else {
         alert("Failed to add item: " + result);
       }
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to process item");
+    } finally {
+      setIsSubmitted(false);
     }
   };
 
@@ -71,12 +80,13 @@ export default function Item() {
     setSelectedGroup("");
   };
 
-  // Modified reset function to clear localStorage
-  const handleReset = () => {
-    setItems(INITIAL_ITEMS);
+  const handleReset = async () => {
+    await remove(ref(db, 'items'));
+    INITIAL_ITEMS.forEach(item => {
+      set(ref(db, `items/${item.id}`), item);
+    });
     setSelectedItem(null);
     setSelectedGroup("");
-    localStorage.setItem('gameItems', JSON.stringify(INITIAL_ITEMS));
   };
 
   return (
@@ -119,7 +129,7 @@ export default function Item() {
             <h2 className="text-xl font-bold mb-4">
               Select Group for {selectedItem.name}
             </h2>
-            
+
             <select
               className="w-full p-2 border rounded mb-4"
               value={selectedGroup}
