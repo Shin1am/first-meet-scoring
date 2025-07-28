@@ -1,15 +1,26 @@
 {
   "files": {
     "main.css": "/first-meet-scoring/static/css/main.b4b295bb.css",
-    "main.js": "/first-meet-scoring/static/js/main.4afa1ae4.js",
+    "main.js": "/first-meet-scoring/static/js/main.3f3baf50.js",
     "static/js/453.54befce2.chunk.js": "/first-meet-scoring/static/js/453.54befce2.chunk.js",
+    "static/media/GoldenApple.png": "/first-meet-scoring/static/media/GoldenApple.6273522f1682b785fd95.png",
+    "static/media/Sheep.png": "/first-meet-scoring/static/media/Sheep.b6860e02240138b8d79f.png",
+    "static/media/EnchantedBook.png": "/first-meet-scoring/static/media/EnchantedBook.1764eefd02a3a44c8231.png",
+    "static/media/WoodLog.png": "/first-meet-scoring/static/media/WoodLog.34920c510885e468cc42.png",
+    "static/media/Mutton.png": "/first-meet-scoring/static/media/Mutton.7a1eb11c64ce9ca536d0.png",
+    "static/media/Chicken.png": "/first-meet-scoring/static/media/Chicken.04cb43fd1f01e40a8209.png",
+    "static/media/Emerald.png": "/first-meet-scoring/static/media/Emerald.92cf7e012961bf1b46dd.png",
+    "static/media/Sword.png": "/first-meet-scoring/static/media/Sword.b9eaad1eb6fe8ae5fdf5.png",
+    "static/media/RedPotion.png": "/first-meet-scoring/static/media/RedPotion.163836e68d2f17a0f760.png",
+    "static/media/test.png": "/first-meet-scoring/static/media/test.c88b95d0dcbe3e3e5e58.png",
+    "static/media/WaterMelon.png": "/first-meet-scoring/static/media/WaterMelon.c041bd73651ddbcc776c.png",
     "index.html": "/first-meet-scoring/index.html",
     "main.b4b295bb.css.map": "/first-meet-scoring/static/css/main.b4b295bb.css.map",
-    "main.4afa1ae4.js.map": "/first-meet-scoring/static/js/main.4afa1ae4.js.map",
+    "main.3f3baf50.js.map": "/first-meet-scoring/static/js/main.3f3baf50.js.map",
     "453.54befce2.chunk.js.map": "/first-meet-scoring/static/js/453.54befce2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b4b295bb.css",
-    "static/js/main.4afa1ae4.js"
+    "static/js/main.3f3baf50.js"
   ]
 }
