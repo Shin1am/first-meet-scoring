@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/first-meet-scoring/static/css/main.b4b295bb.css",
-    "main.js": "/first-meet-scoring/static/js/main.3f3baf50.js",
+    "main.js": "/first-meet-scoring/static/js/main.e2f0e8cd.js",
     "static/js/453.54befce2.chunk.js": "/first-meet-scoring/static/js/453.54befce2.chunk.js",
     "static/media/GoldenApple.png": "/first-meet-scoring/static/media/GoldenApple.6273522f1682b785fd95.png",
     "static/media/Sheep.png": "/first-meet-scoring/static/media/Sheep.b6860e02240138b8d79f.png",
@@ -16,11 +16,11 @@
     "static/media/WaterMelon.png": "/first-meet-scoring/static/media/WaterMelon.c041bd73651ddbcc776c.png",
     "index.html": "/first-meet-scoring/index.html",
     "main.b4b295bb.css.map": "/first-meet-scoring/static/css/main.b4b295bb.css.map",
-    "main.3f3baf50.js.map": "/first-meet-scoring/static/js/main.3f3baf50.js.map",
+    "main.e2f0e8cd.js.map": "/first-meet-scoring/static/js/main.e2f0e8cd.js.map",
     "453.54befce2.chunk.js.map": "/first-meet-scoring/static/js/453.54befce2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b4b295bb.css",
-    "static/js/main.3f3baf50.js"
+    "static/js/main.e2f0e8cd.js"
   ]
 }
