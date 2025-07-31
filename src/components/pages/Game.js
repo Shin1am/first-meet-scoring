@@ -22,9 +22,9 @@ function Game({ game }) {
 
   useEffect(() => {
     if (!manualMode) {
-      const ironVal = parseInt(iron) || 0;
-      const goldVal = parseInt(gold) || 0;
-      const diamondVal = parseInt(diamond) || 0;
+      const ironVal = parseFloat(iron) || 0;
+      const goldVal = parseFloat(gold) || 0;
+      const diamondVal = parseFloat(diamond) || 0;
       setTotalScore(ironVal * 100 + goldVal * 500 + diamondVal * 1000);
     } else {
       setTotalScore(parseInt(manualScore) || 0);
